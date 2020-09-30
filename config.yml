@@ -1,0 +1,9 @@
+---
+window: 
+  width: 20
+  height: 20
+
+input: randomized
+fps: 100
+logfile: yes
+logfile-fname: bubblesort.log
