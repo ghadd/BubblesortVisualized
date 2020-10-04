@@ -1,9 +1,14 @@
 ---
-window: 
-  width: 20
-  height: 20
+window:
+  width: 30
+  height: 30
 
+data-type: real
 input: randomized
-fps: 100
+fps: 10
 logfile: yes
 logfile-fname: bubblesort.log
+
+with-flag: yes
+neg-to-neg: yes
+maximized: no

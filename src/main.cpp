@@ -1,19 +1,12 @@
-// #define MAXIMIZED
-
 #include "visualization.hpp"
+#include <memory>
 
-auto main() -> int
-{
-    auto *vs = new Visualization("config.yml");
+auto main() -> int {
+  std::unique_ptr<Visualization> vs =
+      std::make_unique<Visualization>("config.yml");
 
-#ifdef MAXIMIZED
-    bool bIsMaximized = true;
-#else
-    bool bIsMaximized = false;
-#endif
+  if (vs->Construct(vs->getRows(), vs->getCols(), 4, 4, vs->m_Maximized, true))
+    vs->Start();
 
-    if (vs->Construct(vs->getRows(), vs->getCols(), 4, 4, bIsMaximized))
-        vs->Start();
-
-    return 0;
+  return 0;
 }
