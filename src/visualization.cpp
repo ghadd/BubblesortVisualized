@@ -151,14 +151,23 @@ void Visualization::InitArr() {
   if (m_InputMode == randomized) {
     std::random_device rd;
     std::mt19937 gen(rd());
-#ifdef REAL_INPUT
-    std::uniform_real_distribution<> ud(-(double)(m_Rows / 2.), m_Rows / 2.);
-#else
-    std::uniform_int_distribution<> ud(-m_Rows / 2, m_Rows / 2);
-#endif
+    boost::variant<std::uniform_real_distribution<>,
+                   std::uniform_int_distribution<>>
+        ud;
+    if (m_DataTypeMode == real)
+      ud =
+          std::uniform_real_distribution<>(-(double)(m_Rows / 2.), m_Rows / 2.);
+    else
+      ud = std::uniform_int_distribution<>(-m_Rows / 2, m_Rows / 2);
+
     for (size_t i = 0; i < m_Cols; i++) {
-      m_Arr[i] = ud(gen);
+      if (ud.which() == 0) {
+        m_Arr[i] = boost::get<std::uniform_real_distribution<>>(ud)(gen);
+      } else {
+        m_Arr[i] = boost::get<std::uniform_int_distribution<>>(ud)(gen);
+      }
     }
+
     LogData("Generated array: " + stringify<DataType>(m_Arr) + ".\n");
     LogData("Starting to sort...\n");
   } else {
