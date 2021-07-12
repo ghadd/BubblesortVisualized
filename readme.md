@@ -6,6 +6,7 @@
 - Thread
 - PNG
 - FileSystem 
+- Boost
 - [yaml-cpp](https://github.com/jbeder/yaml-cpp)
 
 ## Compiling on Linux
